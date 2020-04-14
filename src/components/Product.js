@@ -6,15 +6,20 @@ const Product = ({ quantity, price, title, id, onAdd, onClose, onEdit }) => {
     return (
         <div className="raised card">
             <div className="content">
-                <i onClick={() => onClose(id)} className="red right floated window close icon"></i>
+                <i onClick={onClose} className="red right floated window close icon"></i>
+                {/* <i onClick={() => onClose(id)} className="red right floated window close icon"></i> */}
                 <div className="header">{title}</div>
                 <div className="description">{`$${price}`}</div>
                 <div className="description">{`${quantity} left in stock`}</div>
             </div>
-            <div onClick={() => onAdd(id)} className={`olive ui bottom attached button ${addButtonDisabled}`}>
+            <div onClick={onAdd} className={`olive ui bottom attached button ${addButtonDisabled}`}>
                     <i className="add icon"></i>
                     Add to Cart
             </div>
+            {/* <div onClick={() => onAdd(id)} className={`olive ui bottom attached button ${addButtonDisabled}`}>
+                    <i className="add icon"></i>
+                    Add to Cart
+            </div> */}
             <div onClick={() => onEdit(id)} className="ui bottom attached button">
                 <i className="edit icon"></i>
                 Edit

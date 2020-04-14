@@ -31,22 +31,22 @@ let products = [
 ];
 
 let cart = [
-  // {
-  //   id: 4,
-  //   title: 'Tinker, Tailor, Soldier, Spy - A John le Carre Novel',
-  //   quantity: 12,
-  //   price: 13.74
-  // },
-  // {
-  //   id: 5,
-  //   title: 'Libro',
-  //   quantity: 3,
-  //   price: 10.75
-  // }
+  {
+    id: 4,
+    title: 'Tinker, Tailor, Soldier, Spy - A John le Carre Novel',
+    quantity: 12,
+    price: 13.74
+  },
+  {
+    id: 5,
+    title: 'Libro',
+    quantity: 3,
+    price: 10.75
+  }
 ];
 
 class App extends React.Component {
-  state = { products, cart }
+  state = { products, cart, nextId: 6 }
 
   handleAdd = (productId) => {
     let newProductsState = this.getNewProductsState(productId)
@@ -113,6 +113,35 @@ class App extends React.Component {
       cart: []
     })
   }
+
+  handleUpdate = ({id, title, price, quantity}) => {
+    let filteredProducts = this.state.products.filter( (product) => {
+      return product.id !== id
+    })
+
+    let updatedProduct = { 
+      id,
+      title,
+      price: Number(price),
+      quantity: Number(quantity)
+    }
+
+    this.setState({
+      products: [...filteredProducts, updatedProduct]
+    })
+  }
+
+  handleNewProduct = (newProductDetails) => {
+    let newProduct = {
+      ...newProductDetails,
+      id: this.state.nextId
+    }
+
+    this.setState({
+      products: [...this.state.products, newProduct],
+      nextId: this.state.nextId + 1
+    })
+  }
     
   render() {
     return (
@@ -121,10 +150,15 @@ class App extends React.Component {
           <Header products={this.state.cart} onCheckout={this.handleCheckout}/>
         </div>
         <div className="ui segment">
-          <ProductList products={this.state.products} onAdd={this.handleAdd} onClose={this.handleClose}/>
+          <ProductList 
+            products={this.state.products} 
+            onAdd={this.handleAdd} 
+            onClose={this.handleClose}
+            onUpdate={this.handleUpdate}  
+          />
         </div>
-        <div className="ui segment">
-          <NewProductForm />
+        <div className="ui segment padded center aligned grid">
+          <NewProductForm onNewProduct={this.handleNewProduct}/>
         </div>
 
       </div>

@@ -2,10 +2,6 @@ import React from 'react';
 import EditableProduct from './EditableProduct';
 
 class ProductList extends React.Component {
-    onAdd = (id) => {
-        this.props.onAdd(id)
-    }
-
     productsList() {
         let products = this.props.products.map( (product) => {  
             return (
@@ -14,6 +10,7 @@ class ProductList extends React.Component {
                     product={product} 
                     onAdd={() => this.props.onAdd(product.id)}
                     onClose={() => this.props.onClose(product.id)}
+                    onUpdate={this.props.onUpdate}
                 />
             ) 
         })
