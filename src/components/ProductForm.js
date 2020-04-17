@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { updateProduct } from '../actions'
 
 class ProductForm extends React.Component {
     state = {
@@ -24,6 +26,11 @@ class ProductForm extends React.Component {
         this.setState({
             quantity: e.target.value 
         })
+    }
+
+    onUpdate = (updateDetails) => {
+        this.props.updateProduct(updateDetails);
+        this.props.toggleEdit()
     }
 
     render() {
@@ -60,11 +67,11 @@ class ProductForm extends React.Component {
                         </div>
                     </div>
                     
-                    <div onClick={() => this.props.onUpdate(this.state)} className={`olive ui bottom attached button`}>
+                    <div onClick={() => this.onUpdate(this.state)} className={`olive ui bottom attached button`}>
                         <i className="edit icon"></i>
                         Update
                     </div>
-                    <div onClick={() => this.props.onEditClose()} className="ui bottom attached button">
+                    <div onClick={() => this.props.onCancel()} className="ui bottom attached button">
                         <i className="window close icon"></i>
                         Cancel
                     </div>
@@ -74,4 +81,8 @@ class ProductForm extends React.Component {
     }
 }
 
-export default ProductForm;
+const mapStateToProps = () => {
+    return { }
+}
+
+export default connect(mapStateToProps, { updateProduct }) (ProductForm);

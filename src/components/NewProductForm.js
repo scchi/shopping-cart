@@ -1,4 +1,6 @@
 import React from 'react'
+import { connect } from 'react-redux';
+import { createProduct } from '../actions'; 
 import { Button, Modal } from 'semantic-ui-react'
 
 class NewProductForm extends React.Component {
@@ -40,10 +42,10 @@ class NewProductForm extends React.Component {
       let newProductDetails = { 
           title: this.state.title,
           quantity: this.state.quantity,
-          price: this.state.price
+          price: this.state.price,
         }
 
-      this.props.onNewProduct(newProductDetails)
+      this.props.createProduct(newProductDetails)
       this.close()
   }
 
@@ -103,4 +105,8 @@ class NewProductForm extends React.Component {
   }
 }
 
-export default NewProductForm;
+const mapStateToProps = () => {
+  return {}
+}
+
+export default connect(mapStateToProps, { createProduct }) (NewProductForm);

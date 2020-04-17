@@ -11,19 +11,14 @@ class EditableProduct extends React.Component {
         this.setState({ editing: !this.state.editing })
     }
 
-    onUpdate = (state) => {
-        this.toggleEdit()
-        this.props.onUpdate(state)
-    }
-
     render() {
         let { quantity, title, price, id } = this.props.product
 
         return (
             this.state.editing ?
             (<ProductForm 
-                onEditClose={this.toggleEdit}
-                onUpdate={this.onUpdate}
+                onCancel={this.toggleEdit}
+                toggleEdit={this.toggleEdit}
                 id={id} 
                 quantity={quantity} 
                 title={title} 
@@ -32,8 +27,6 @@ class EditableProduct extends React.Component {
             :
             (<Product
                 key={id} 
-                onAdd={this.props.onAdd}
-                onClose={this.props.onClose}
                 onEdit={this.toggleEdit} 
                 id={id} 
                 quantity={quantity} 

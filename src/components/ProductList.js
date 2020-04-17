@@ -1,37 +1,39 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import EditableProduct from './EditableProduct';
 
 class ProductList extends React.Component {
-    productsList() {
-        let products = this.props.products.map( (product) => {  
-            return (
-                <EditableProduct
-                    key={product.id} 
-                    product={product} 
-                    onAdd={() => this.props.onAdd(product.id)}
-                    onClose={() => this.props.onClose(product.id)}
-                    onUpdate={this.props.onUpdate}
-                />
-            ) 
-        })
+  productsList() {
+    let products = this.props.products.map( (product) => {  
+      return (
+        <EditableProduct
+          key={product.id} 
+          product={product} 
+        />
+      ) 
+    })
 
-        return (
-            <div className="ui cards">
-                {products}
-            </div>
-        )
-    }
+    return (
+      <div className="ui cards">
+        {products}
+      </div>
+    )
+  }
 
-    render() {
-        return (
-            <div>
-                <h1>Products</h1>
-                <ul>
-                    {this.productsList()}
-                </ul>
-            </div>
-        ) 
-    }
+  render() {
+    return (
+      <div>
+        <h1>Products</h1>
+        <ul>
+          {this.productsList()}
+        </ul>
+      </div>
+    ) 
+  }
 }
 
-export default ProductList;
+const mapStateToProps = (state) => {
+  return { products: state.products }
+}
+
+export default connect(mapStateToProps) (ProductList);
